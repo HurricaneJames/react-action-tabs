@@ -1,0 +1,3 @@
+--require ./testdom.js
+--require expect.js
+--require sinon
