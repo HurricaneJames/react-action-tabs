@@ -49,18 +49,24 @@ var TabWidget = React.createClass({
     var options = [];
     React.Children.forEach(bar.props.children, (child) => {
       if(child.type === TabOption) {
-        options.push(React.cloneElement(child, { action: this.onAction.bind(null, child) }));
+        options.push(React.cloneElement(child, { key: child.key || child.props.name, action: this.onAction.bind(null, child) }));
       }
     });
     return options;
   },
+  getTabBarElement: function(originalBarElement) {
+    return React.cloneElement(originalBarElement, { key: originalBarElement.key || 'tabbar' }, this.getOptionsFromTabBar(originalBarElement));
+  },
   getContainerElements: function() {
-    return React.Children.map(this.props.children, (child) => {
-      if(child.type === TabBar) {
-        return React.cloneElement(child, {}, this.getOptionsFromTabBar(child));
-      }
-      return child;
+    var containerElements = [];
+    React.Children.forEach(this.props.children, (child) => {
+      containerElements.push(
+        child.type === TabBar ?
+        this.getTabBarElement(child) :
+        React.cloneElement(child, { key: child.key || child.props.name })
+      );
     }, this);
+    return containerElements;
   },
   render: function() {
     return (

@@ -28,10 +28,6 @@ TabOption will use name if no children
   can probably do other things, with undefined results
   - noActivePassthrough - set when tabbar should not set an `active` prop to selected options/panels
 
-TODO
-  - remove radium (dev dep only)
-  - add stub for styles object in tests
-
 Can set className for each element
 can set style for each element
 talk about default styles (default because I find them useful in my project).

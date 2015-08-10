@@ -116,7 +116,7 @@ describe('TabOption', () => {
     expect(tabOption.props.style).to.eql(style);
   });
 
-  it('should throw when given more than a single root child', () => {
+  it('should throw when given more than a single root child (should have a react invalid prop `children` warning too)', () => {
     var name = 'Option 1';
     var childStyle = { hotPot: 'oil' };
     expect(() => {
