@@ -15,6 +15,7 @@
     "eol-last": [0],
     "no-mixed-requires": [0],
     "no-underscore-dangle": [0],
+    "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
     "no-alert": [0],
     "key-spacing": [0],
     "camelcase": [0],
