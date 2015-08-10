@@ -1,3 +1,6 @@
+## 0.2.2 / 0.2.3
+* forgot that .npmignore is required when .gitignore lists the build directory, and it took a couple pushes to remember...
+
 ## 0.2.1
 * removed radium requirement
 * fixed some missing child key issues
