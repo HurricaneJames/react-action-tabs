@@ -6,17 +6,28 @@ const { addons: { TestUtils } } = React
 
 import Widget from '../src/TabWidget';
 import Bar from '../src/TabBar';
+import Container from '../src/TabContainer';
 import Option from '../src/TabOption';
 import Panel from '../src/TabPanel';
-import Container from '../src/TabContainer';
 
 describe('TabWidget', () => {
   it('should not crash on no attributes', () => {
     expect(() => TestUtils.renderIntoDocument(<Widget />)).not.to.throwException();
   });
 
-  it('should render something', () => {
-    var x = (
+  it('should render a Container', () => {
+    var widget = TestUtils.renderIntoDocument(
+      <Widget>
+        <Bar><Option name='abc' /></Bar>
+        <Panel name='abc'><span>{'panel'}</span></Panel>
+      </Widget>
+    );
+    var containers = TestUtils.scryRenderedComponentsWithType(widget, Container);
+    expect(containers.length).to.be(1);
+  });
+
+  it('should render the tab bar', () => {
+    var widget = TestUtils.renderIntoDocument(
       <Widget>
         <Bar>
           <Option name="abc" action={function() {}} />
@@ -27,7 +38,8 @@ describe('TabWidget', () => {
         </Panel>
       </Widget>
     );
-    var y = TestUtils.renderIntoDocument(x);
+    var bar = TestUtils.scryRenderedComponentsWithType(widget, Bar);
+    expect(bar.length).to.be(1);
   });
 
   it('should show the panel for an item when clicked', () => {
@@ -81,6 +93,35 @@ describe('TabWidget', () => {
     var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
     expect(container.length).to.be(1);
     expect(container[0].props.selected).to.eql(['def']);
+  });
+
+  it('should set the `className`', () => {
+    var className = 'xyzzy';
+    var widget = TestUtils.renderIntoDocument(
+      <Widget className={className}>
+        <Bar>
+          <Option name="abc" action={function() {}} />
+          <Option name="def" />
+        </Bar>
+        <Panel name="abc">
+          <div>Help Me Find This</div>
+        </Panel>
+      </Widget>
+    );
+    expect(React.findDOMNode(widget).className).to.eql(className);
+  });
+
+  it('should set the container style to style', () => {
+    var style = { myCustomStyle: 'is-really-neat' };
+    var shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <Widget name={name} style={style}>
+        <Bar><Option name='abc' /></Bar>
+        <Panel name='abc'><span>{'panel'}</span></Panel>
+      </Widget>
+    );
+    var widget = shallowRenderer.getRenderOutput();
+    expect(widget.props.style).to.be(style);
   });
 
   describe('`allowMultiplePanels` atttibute', () => {
@@ -188,4 +229,5 @@ describe('TabWidget', () => {
       expect(container[0].props.selected).to.eql([ 'def' ]);
     });
   });
+
 });

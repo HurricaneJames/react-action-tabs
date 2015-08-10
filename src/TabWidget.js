@@ -4,14 +4,15 @@ import { indexOf } from './compat';
 
 import TabBar from './TabBar';
 import TabContainer from './TabContainer';
-import TabPanel from './TabPanel';
 import TabOption from './TabOption';
 
 var TabWidget = React.createClass({
   displayName: 'TabWidget',
   propTypes: {
     allowMultiplePanels: React.PropTypes.bool,
-    children: React.PropTypes.oneOfType(React.PropTypes.element, React.PropTypes.arrayOf(React.PropTypes.element))
+    className: React.PropTypes.string,
+    style: React.PropTypes.object,
+    children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.arrayOf(React.PropTypes.element)])
   },
   getInitialState: function() {
     return {
@@ -54,11 +55,6 @@ var TabWidget = React.createClass({
     return options;
   },
   getContainerElements: function() {
-    var container = {
-      options: undefined,
-      panels: []
-    }
-    var options;
     return React.Children.map(this.props.children, (child) => {
       if(child.type === TabBar) {
         return React.cloneElement(child, {}, this.getOptionsFromTabBar(child));
@@ -68,7 +64,11 @@ var TabWidget = React.createClass({
   },
   render: function() {
     return (
-      <TabContainer selected={this.state.selected}>
+      <TabContainer
+        className={this.props.className}
+        selected={this.state.selected}
+        style={this.props.style}
+      >
         { this.getContainerElements() }
       </TabContainer>
     );

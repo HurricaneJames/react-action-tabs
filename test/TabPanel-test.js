@@ -22,4 +22,20 @@ describe('TabPanel', () => {
     var panel = TestUtils.renderIntoDocument(panelElement);
     expect(React.findDOMNode(panel).textContent).to.be('Test ContentAlpha');
   });
+
+  it('should set the style of the div to the `style` prop if supplied', () => {
+    var style = { real: 'not' };
+    var panel = TestUtils.renderIntoDocument(
+      <Panel name='abc' style={style}><span>{'Content'}</span></Panel>
+    );
+    expect(TestUtils.findRenderedDOMComponentWithTag(panel, 'div').props.style).to.eql(style);
+  });
+
+  it('should set the class name of the div to the `className` prop if supplied', () => {
+    var className = 'my-custom-class-name';
+    var panel = TestUtils.renderIntoDocument(
+      <Panel name='abc' className={className}><span>{'Content'}</span></Panel>
+    );
+    expect(TestUtils.findRenderedDOMComponentWithTag(panel, 'div').props.className).to.be(className);
+  });
 });

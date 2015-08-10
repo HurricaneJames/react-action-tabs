@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Radium from 'radium';
 import Styles from './Styles';
 import TabOption from './TabOption';
-
-const itemStyle = Styles.TabBar.item;
-const listStyle = Styles.TabBar.list;
 
 var TabBar = React.createClass({
   displayName: 'TabBar',
@@ -13,6 +10,8 @@ var TabBar = React.createClass({
       React.PropTypes.arrayOf(React.PropTypes.element),
       React.PropTypes.element
     ]),
+    className: React.PropTypes.string,
+    style: React.PropTypes.object,
     selected: React.PropTypes.array.isRequired
   },
   getDefaultProps: function() {
@@ -32,16 +31,12 @@ var TabBar = React.createClass({
   },
   render: function() {
     return (
-      <ul style={listStyle.base} >
+      <ul style={this.props.style || Styles.TabBar.base} className={this.props.className}>
         {
           React.Children.map(this.props.children, (child) => {
             if(this.isOption(child)) {
               return (
-                <li style={itemStyle.base} >
-                {
-                  React.cloneElement(child, this.isOptionSelected(child.props.name) ? { selected: true } : {})
-                }
-                </li>
+                React.cloneElement(child, this.isOptionSelected(child.props.name) ? { selected: true } : {})
               );
             }else {
               return false;

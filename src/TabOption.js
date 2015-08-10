@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Styles from './Styles';
 
-const style = Styles.TabOption;
+const defaultStyle = Styles.TabOption;
 
 var TabOption = React.createClass({
   displayName: 'TabOption',
   propTypes: {
     name: React.PropTypes.string.isRequired,
     action: React.PropTypes.func,
+    className: React.PropTypes.string,
     selected: React.PropTypes.bool,
+    style: React.PropTypes.object,
     noActivePassthrough: React.PropTypes.bool,
     children: React.PropTypes.element
   },
   getBaseStyles: function() {
-    return Styles.merge([style.base, this.props.selected && style.selected ]);
+    return this.props.style || Styles.merge([defaultStyle.base, this.props.selected && defaultStyle.selected ]);
   },
   onClick: function() {
     var child;
@@ -24,17 +26,18 @@ var TabOption = React.createClass({
   },
   renderChild: function() {
     var child = React.Children.only(this.props.children);
-    var childProps = {
-      style: Styles.merge([this.getBaseStyles(), child.props.style]),
-      onClick: this.onClick
-    };
+    var childProps = {};
     if(this.props.selected && !this.props.noActivePassthrough) { childProps.active = true; }
     return React.cloneElement(child, childProps);
   },
   render: function() {
     return (
-      (React.Children.count(this.props.children) > 0 && this.renderChild()) ||
-      <div onClick={this.props.action} style={this.getBaseStyles()}>{this.props.name}</div>
+      <li className={this.props.className} style={this.getBaseStyles()} onClick={this.props.action}>
+        {
+          (React.Children.count(this.props.children) > 0 && this.renderChild()) ||
+          this.props.name
+        }
+      </li>
     );
   }
 });

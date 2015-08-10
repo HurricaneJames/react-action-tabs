@@ -8,6 +8,8 @@ var TabContainer = React.createClass({
   displayName: 'TabContainer',
   propTypes: {
     selected: React.PropTypes.arrayOf(React.PropTypes.string),
+    className: React.PropTypes.string,
+    style: React.PropTypes.object,
     children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.arrayOf(React.PropTypes.element)])
   },
   isSelected: function(name) {
@@ -34,8 +36,8 @@ var TabContainer = React.createClass({
   render: function() {
     var children = this.getValidChildren();
     return (
-      <div>
-        { children.bar }
+      <div className={this.props.className} style={this.props.style}>
+        { children.bar && React.cloneElement(children.bar, { selected: this.props.selected }) }
         { this.getVisiblePanels(this.props.selected, children.panels) }
       </div>
     );

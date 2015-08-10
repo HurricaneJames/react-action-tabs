@@ -63,6 +63,33 @@ describe('TabOption', () => {
     expect(span.props.active).to.be.ok();
   });
 
+  it('should set the `className` when given as a prop', () => {
+    var className = 'alpha';
+    var tabOption = TestUtils.renderIntoDocument(
+      <TabOption name='something' className={className} />
+    );
+    var item = TestUtils.findRenderedDOMComponentWithTag(tabOption, 'li');
+    expect(item.props.className).to.be(className);
+  });
+
+  it('should not set the `className` when there is a child', () => {
+    var className = 'alpha';
+    var tabOption = TestUtils.renderIntoDocument(
+      <TabOption name='something' className={className} />
+    );
+    var item = TestUtils.findRenderedDOMComponentWithTag(tabOption, 'li');
+    expect(item.props.className).to.be(className);
+  });
+
+  it('should use the supplied `style` when available', () => {
+    var name = 'Option 1';
+    var style = { myStyleAttr: 'isReallyGreat' };
+    var shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(<TabOption name={name} style={style} />);
+    var tabOption = shallowRenderer.getRenderOutput();
+    expect(tabOption.props.style).to.eql(style);
+  });
+
   it('should use the `TabOption.base` style', () => {
     var name = 'Option 1';
     var shallowRenderer = TestUtils.createRenderer();
@@ -80,27 +107,13 @@ describe('TabOption', () => {
     expect(tabOption.props.style).to.eql(expectedStyle);
   });
 
-  it('should pass the style to the child element if present', () => {
+  it('should not apply the default selected style when the `style` prop is given', () => {
     var name = 'Option 1';
-    var tabOption = TestUtils.renderIntoDocument(
-      <TabOption name={name} selected>
-        <span>This is interesting</span>
-      </TabOption>
-    );
-    var expectedStyle = Object.assign({}, Styles.TabOption.base, Styles.TabOption.selected);
-    expect(TestUtils.findRenderedDOMComponentWithTag(tabOption, 'span').props.style).to.eql(expectedStyle);
-  });
-
-  it('should preserve the child styles and overwrite internal styles with child styles', () => {
-    var name = 'Option 1';
-    var childStyle = { hotPot: 'oil' };
-    var tabOption = TestUtils.renderIntoDocument(
-      <TabOption name={name} selected>
-        <span style={childStyle}>This is interesting</span>
-      </TabOption>
-    );
-    var expectedStyle = Object.assign({}, Styles.TabOption.base, Styles.TabOption.selected, childStyle);
-    expect(TestUtils.findRenderedDOMComponentWithTag(tabOption, 'span').props.style).to.eql(expectedStyle);
+    var style = { myCustomAttr: 'isReallyGreat' };
+    var shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(<TabOption name={name} selected style={style} />);
+    var tabOption = shallowRenderer.getRenderOutput();
+    expect(tabOption.props.style).to.eql(style);
   });
 
   it('should throw when given more than a single root child', () => {
@@ -132,7 +145,9 @@ describe('TabOption', () => {
         <span>{'Click me'}</span>
       </TabOption>
     );
-    TestUtils.Simulate.click(React.findDOMNode(tabOption));
+    TestUtils.Simulate.click(
+      React.findDOMNode(TestUtils.findRenderedDOMComponentWithTag(tabOption, 'span'))
+    );
     expect(callback.calledOnce).to.be.ok();
   });
 
@@ -145,7 +160,9 @@ describe('TabOption', () => {
         <span onClick={onClick}>{'Click me'}</span>
       </TabOption>
     );
-    TestUtils.Simulate.click(React.findDOMNode(tabOption));
+    TestUtils.Simulate.click(
+      React.findDOMNode(TestUtils.findRenderedDOMComponentWithTag(tabOption, 'span'))
+    );
     expect(callback.calledOnce).to.be.ok();
     expect(onClick.calledOnce).to.be.ok();
   });

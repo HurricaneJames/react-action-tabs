@@ -7,7 +7,6 @@ import TabBar from '../src/TabBar';
 import TabOption from '../src/TabOption';
 
 import Styles from '../src/Styles';
-const TabBarStyles = Styles.TabBar;
 
 describe('TabBar', () => {
   it('should render an empty tab bar without crashing', () => {
@@ -63,7 +62,7 @@ describe('TabBar', () => {
     expect(options[2].props.selected).not.to.be.ok();
   });
 
-  it('should use the Styles.TabBar styles', () => {
+  it('should use the Styles.TabBar styles by default', () => {
     var names = ['alpha', 'beta', 'gamma'];
     var selected = [names[0]];
     var tabBar = TestUtils.renderIntoDocument(
@@ -74,12 +73,30 @@ describe('TabBar', () => {
       </TabBar>
     );
     var list = TestUtils.findRenderedDOMComponentWithTag(tabBar, 'ul');
-    var items = TestUtils.scryRenderedDOMComponentsWithTag(tabBar, 'li');
+    expect(list.props.style).to.eql(Styles.TabBar.base);
+  });
 
-    var selectedItemStyle = Object.assign({}, Styles.TabBar.item.base, Styles.TabBar.item.selected);
-    expect(list.props.style).to.eql(Styles.TabBar.list.base);
-    expect(items[0].props.style).to.eql(Styles.TabBar.item.base);
-    expect(items[1].props.style).to.eql(Styles.TabBar.item.base);
-    expect(items[2].props.style).to.eql(Styles.TabBar.item.base);
+  it('should use the `style` prop when supplied', () => {
+    var style = { display: 'isReallyNeat' };
+    var shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <TabBar style={style}>
+        <TabOption name='abc' />
+      </TabBar>
+    );
+    var tabBar = shallowRenderer.getRenderOutput();
+    expect(tabBar.props.style).to.eql(style);
+  });
+
+  it('should set the `className`', () => {
+    var className = 'alpha';
+    var shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(
+      <TabBar className={className}>
+        <TabOption name='abc' />
+      </TabBar>
+    );
+    var tabBar = shallowRenderer.getRenderOutput();
+    expect(tabBar.props.className).to.be(className);
   });
 });

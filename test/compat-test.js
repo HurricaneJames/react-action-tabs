@@ -19,6 +19,6 @@ describe('compat', () => {
 
   it('should be able to filter an array', () => {
     expect(compat.filter([1, 2, 3], (i) => i === 2)).to.eql([2]);
-    expect(compat.filter([1, 2, 3], (i) => true)).to.eql([1, 2, 3]);
+    expect(compat.filter([1, 2, 3], ( ) => true)).to.eql([1, 2, 3]);
   });
 });

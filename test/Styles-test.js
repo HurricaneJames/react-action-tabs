@@ -1,9 +1,4 @@
 import expect from 'expect.js';
-import sinon from 'sinon';
-
-import React from 'react/addons'
-const { addons: { TestUtils } } = React
-
 import Styles from '../src/Styles';
 
 describe('Styles', () => {

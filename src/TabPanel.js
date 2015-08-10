@@ -3,6 +3,8 @@ import React from 'react';
 var TabPanel = React.createClass({
   displayName: 'TabPanel',
   propTypes: {
+    className: React.PropTypes.string,
+    style: React.PropTypes.object,
     children: React.PropTypes.oneOfType([
       React.PropTypes.element,
       React.PropTypes.arrayOf(React.PropTypes.element)
@@ -10,7 +12,7 @@ var TabPanel = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div className={this.props.className} style={this.props.style}>
         {
           this.props.children
         }
