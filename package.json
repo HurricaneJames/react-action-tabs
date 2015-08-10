@@ -8,8 +8,8 @@
     "prepublish": "npm run build",
     "start": "node server.js",
     "lint": "eslint src",
-    "test": "./node_modules/.bin/mocha --compilers js:babel/register test/*-test.js",
-    "test-watch": "./node_modules/.bin/mocha --compilers js:babel/register -w test/*-test.js"
+    "test": "./node_modules/.bin/mocha --compilers js:babel/register --retainLines test/*-test.js",
+    "test-watch": "./node_modules/.bin/mocha --compilers js:babel/register --retainLines -w test/*-test.js"
   },
   "repository": {
     "type": "git",
