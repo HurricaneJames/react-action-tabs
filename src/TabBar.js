@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 import Styles from './Styles';
 import TabOption from './TabOption';
 
@@ -48,4 +47,4 @@ var TabBar = React.createClass({
   }
 });
 
-export default Radium(TabBar);
+export default TabBar;
