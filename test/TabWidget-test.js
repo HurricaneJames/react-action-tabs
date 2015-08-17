@@ -65,7 +65,7 @@ describe('TabWidget', () => {
     expect(cc.called).to.be.ok()
     var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
     expect(container.length).to.be(1);
-    expect(container[0].props.selected).to.eql(['abc']);
+    expect(container[0].props.active).to.eql(['abc']);
   });
 
   it('should only show one panel at a time by default', () => {
@@ -92,7 +92,7 @@ describe('TabWidget', () => {
     expect(cc.calledOnce).to.be.ok()
     var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
     expect(container.length).to.be(1);
-    expect(container[0].props.selected).to.eql(['def']);
+    expect(container[0].props.active).to.eql(['def']);
   });
 
   it('should set the `className`', () => {
@@ -147,7 +147,7 @@ describe('TabWidget', () => {
       options[1].props.action.call();
       var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
       expect(container.length).to.be(1);
-      expect(container[0].props.selected).to.eql(['abc', 'def']);
+      expect(container[0].props.active).to.eql(['abc', 'def']);
     });
 
     it('should toggle the panel for the current option if it has the `toggle` attribute', () => {
@@ -174,7 +174,7 @@ describe('TabWidget', () => {
       expect(callback.calledTwice).to.be.ok();
       var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
       expect(container.length).to.be(1);
-      expect(container[0].props.selected).to.eql([]);
+      expect(container[0].props.active).to.eql([]);
     });
 
     it('should continue to show the panel when the action for that panel is clicked while the panel is already displayed', () => {
@@ -201,7 +201,7 @@ describe('TabWidget', () => {
       expect(callback.calledTwice).to.be.ok();
       var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
       expect(container.length).to.be(1);
-      expect(container[0].props.selected).to.eql([ 'abc' ]);
+      expect(container[0].props.active).to.eql([ 'abc' ]);
     });
 
     it('should automatically hide other panels when the current action has the `hideOtherPanels` attribute', () => {
@@ -226,7 +226,7 @@ describe('TabWidget', () => {
       options[1].props.action.call();
       var container = TestUtils.scryRenderedComponentsWithType(widget, Container);
       expect(container.length).to.be(1);
-      expect(container[0].props.selected).to.eql([ 'def' ]);
+      expect(container[0].props.active).to.eql([ 'def' ]);
     });
   });
 

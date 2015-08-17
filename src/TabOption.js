@@ -9,13 +9,13 @@ var TabOption = React.createClass({
     name: React.PropTypes.string.isRequired,
     action: React.PropTypes.func,
     className: React.PropTypes.string,
-    selected: React.PropTypes.bool,
+    active: React.PropTypes.bool,
     style: React.PropTypes.object,
     noActivePassthrough: React.PropTypes.bool,
     children: React.PropTypes.element
   },
   getBaseStyles: function() {
-    return this.props.style || Styles.merge([defaultStyle.base, this.props.selected && defaultStyle.selected ]);
+    return this.props.style || Styles.merge([defaultStyle.base, this.props.active && defaultStyle.active ]);
   },
   onClick: function() {
     var child;
@@ -27,7 +27,7 @@ var TabOption = React.createClass({
   renderChild: function() {
     var child = React.Children.only(this.props.children);
     var childProps = {};
-    if(this.props.selected && !this.props.noActivePassthrough) { childProps.active = true; }
+    if(this.props.active && !this.props.noActivePassthrough) { childProps.active = true; }
     return React.cloneElement(child, childProps);
   },
   render: function() {

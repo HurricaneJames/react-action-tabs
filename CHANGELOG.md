@@ -1,3 +1,6 @@
+## 0.3
+* changed selected to active as it more accurately represents what the tab is doing
+
 ## 0.2.2 / 0.2.3
 * forgot that .npmignore is required when .gitignore lists the build directory, and it took a couple pushes to remember...
 

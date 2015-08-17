@@ -14,9 +14,9 @@ describe('TabContainer', () => {
     expect(() => TestUtils.renderIntoDocument(<Container />)).not.to.throwException();
   });
 
-  it('should render panels with names that are in the `selected` array prop', () => {
+  it('should render panels with names that are in the `active` array prop', () => {
     var container = TestUtils.renderIntoDocument(
-      <Container selected={['abc', 'def']}>
+      <Container active={['abc', 'def']}>
         <Bar>
           <Option name="abc" />
           <Option name="def" />
@@ -39,10 +39,10 @@ describe('TabContainer', () => {
     expect(panels[1].props.name).to.be('def');
   });
 
-  it('should pass the selected items on to the tab bar', () => {
-    var selected = ['abc', 'def'];
+  it('should pass the active items on to the tab bar', () => {
+    var active = ['abc', 'def'];
     var container = TestUtils.renderIntoDocument(
-      <Container selected={selected}>
+      <Container active={active}>
         <Bar>
           <Option name="abc" />
           <Option name="def" />
@@ -51,13 +51,13 @@ describe('TabContainer', () => {
       </Container>
     );
     var bar = TestUtils.findRenderedComponentWithType(container, Bar);
-    expect(bar.props.selected).to.be(selected);
+    expect(bar.props.active).to.be(active);
   });
 
   it('should render the `className` prop', () => {
     var className = 'my-custom-classname=';
     var container = TestUtils.renderIntoDocument(
-      <Container className={className} selected={['abc', 'def']}>
+      <Container className={className} active={['abc', 'def']}>
         <Bar>
           <Option name="abc" />
           <Option name="def" />

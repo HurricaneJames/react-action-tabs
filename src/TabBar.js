@@ -11,20 +11,20 @@ var TabBar = React.createClass({
     ]),
     className: React.PropTypes.string,
     style: React.PropTypes.object,
-    selected: React.PropTypes.array.isRequired
+    active: React.PropTypes.array.isRequired
   },
   getDefaultProps: function() {
     return {
-      selected: []
+      active: []
     };
   },
   isOption: function(component) {
     return component.type === TabOption;
   },
   isOptionSelected: function(optionName) {
-    var selected = this.props.selected;
-    for(var i = 0, len = selected.length; i < len; i++) {
-      if(selected[i] === optionName) { return true; }
+    var active = this.props.active;
+    for(var i = 0, len = active.length; i < len; i++) {
+      if(active[i] === optionName) { return true; }
     }
     return false;
   },
@@ -35,7 +35,7 @@ var TabBar = React.createClass({
           React.Children.map(this.props.children, (child) => {
             if(this.isOption(child)) {
               return (
-                React.cloneElement(child, this.isOptionSelected(child.props.name) ? { selected: true } : {})
+                React.cloneElement(child, this.isOptionSelected(child.props.name) ? { active: true } : {})
               );
             }else {
               return false;

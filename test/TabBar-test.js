@@ -28,11 +28,11 @@ describe('TabBar', () => {
     expect(options[1].props.name).to.be('option 2');
   });
 
-  it('should pass the selected prop to those options whose name is in the selected array prop', () => {
+  it('should pass the active prop to those options whose name is in the active array prop', () => {
     var names = ['alpha', 'beta', 'gamma'];
-    var selected = [names[0], names[2]];
+    var active = [names[0], names[2]];
     var bar = (
-      <TabBar selected={selected}>
+      <TabBar active={active}>
         <TabOption name={names[0]} />
         <TabOption name={names[1]} />
         <TabOption name={names[2]} />
@@ -40,35 +40,35 @@ describe('TabBar', () => {
     );
     var tabBar = TestUtils.renderIntoDocument(bar);
     var options = TestUtils.scryRenderedComponentsWithType(tabBar, TabOption);
-    expect(options[0].props.selected).to.be.ok();
-    expect(options[1].props.selected).not.to.be.ok();
-    expect(options[2].props.selected).to.be.ok();
+    expect(options[0].props.active).to.be.ok();
+    expect(options[1].props.active).not.to.be.ok();
+    expect(options[2].props.active).to.be.ok();
   });
 
-  it('should respect tab options that are selected by hand', () => {
+  it('should respect tab options that are active by hand', () => {
     var names = ['alpha', 'beta', 'gamma'];
-    var selected = [names[0]];
+    var active = [names[0]];
     var bar = (
-      <TabBar selected={selected}>
+      <TabBar active={active}>
         <TabOption name={names[0]} />
-        <TabOption name={names[1]} selected />
+        <TabOption name={names[1]} active />
         <TabOption name={names[2]} />
       </TabBar>
     );
     var tabBar = TestUtils.renderIntoDocument(bar);
     var options = TestUtils.scryRenderedComponentsWithType(tabBar, TabOption);
-    expect(options[0].props.selected).to.be.ok();
-    expect(options[1].props.selected).to.be.ok();
-    expect(options[2].props.selected).not.to.be.ok();
+    expect(options[0].props.active).to.be.ok();
+    expect(options[1].props.active).to.be.ok();
+    expect(options[2].props.active).not.to.be.ok();
   });
 
   it('should use the Styles.TabBar styles by default', () => {
     var names = ['alpha', 'beta', 'gamma'];
-    var selected = [names[0]];
+    var active = [names[0]];
     var tabBar = TestUtils.renderIntoDocument(
-      <TabBar selected={selected}>
+      <TabBar active={active}>
         <TabOption name={names[0]} />
-        <TabOption name={names[1]} selected />
+        <TabOption name={names[1]} active />
         <TabOption name={names[2]} />
       </TabBar>
     );

@@ -30,10 +30,10 @@ describe('TabOption', () => {
     expect(TestUtils.scryRenderedDOMComponentsWithTag(tabOption, 'span').length).to.be(1);
   });
 
-  it('should render the child with an `active` prop if the tab is selected', () => {
+  it('should render the child with an `active` prop if the tab is active', () => {
     var name = 'Option 1';
     var tabOption = TestUtils.renderIntoDocument(
-      <TabOption name={name} selected>
+      <TabOption name={name} active>
         <span>element 0</span>
       </TabOption>
     );
@@ -44,7 +44,7 @@ describe('TabOption', () => {
   it('should not pass the `active` prop to the child  when the `noActivePassthrough` prop is set', () => {
     var name = 'Option 1';
     var tabOption = TestUtils.renderIntoDocument(
-      <TabOption name={name} selected noActivePassthrough>
+      <TabOption name={name} active noActivePassthrough>
         <span>element 0</span>
       </TabOption>
     );
@@ -55,7 +55,7 @@ describe('TabOption', () => {
   it('should not strip off a preexisting `active` prop on the children when the `noActivePassthrough` prop is set', () => {
     var name = 'Option 1';
     var tabOption = TestUtils.renderIntoDocument(
-      <TabOption name={name} selected noActivePassthrough>
+      <TabOption name={name} active noActivePassthrough>
         <span active>element 0</span>
       </TabOption>
     );
@@ -98,20 +98,20 @@ describe('TabOption', () => {
     expect(tabOption.props.style).to.eql(Styles.TabOption.base);
   });
 
-  it('should apply the `TabOption.selected` style when given the selected prop', () => {
+  it('should apply the `TabOption.active` style when given the active prop', () => {
     var name = 'Option 1';
     var shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<TabOption name={name} selected />);
+    shallowRenderer.render(<TabOption name={name} active />);
     var tabOption = shallowRenderer.getRenderOutput();
-    var expectedStyle = Object.assign({}, Styles.TabOption.base, Styles.TabOption.selected);
+    var expectedStyle = Object.assign({}, Styles.TabOption.base, Styles.TabOption.active);
     expect(tabOption.props.style).to.eql(expectedStyle);
   });
 
-  it('should not apply the default selected style when the `style` prop is given', () => {
+  it('should not apply the default active style when the `style` prop is given', () => {
     var name = 'Option 1';
     var style = { myCustomAttr: 'isReallyGreat' };
     var shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<TabOption name={name} selected style={style} />);
+    shallowRenderer.render(<TabOption name={name} active style={style} />);
     var tabOption = shallowRenderer.getRenderOutput();
     expect(tabOption.props.style).to.eql(style);
   });
@@ -121,7 +121,7 @@ describe('TabOption', () => {
     var childStyle = { hotPot: 'oil' };
     expect(() => {
       return (TestUtils.renderIntoDocument(
-        <TabOption name={name} selected>
+        <TabOption name={name} active>
           <span style={childStyle}>This is interesting</span>
           <span>This will not work</span>
         </TabOption>

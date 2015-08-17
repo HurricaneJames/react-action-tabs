@@ -16,32 +16,32 @@ var TabWidget = React.createClass({
   },
   getInitialState: function() {
     return {
-      selected: []
+      active: []
     };
   },
   onAction: function(option) {
     if(option.props.action) {
       option.props.action.apply(null, Array.prototype.slice.call(arguments, 1));
     }
-    var selected = this.state.selected;
-    var optionIndex = indexOf(selected, option.props.name);
+    var active = this.state.active;
+    var optionIndex = indexOf(active, option.props.name);
     var alreadySelected = optionIndex > -1;
     if(this.props.allowMultiplePanels && !option.props.hideOtherPanels) {
       if(alreadySelected) {
         if(option.props.toggle) {
-          selected.splice(optionIndex, 1);
+          active.splice(optionIndex, 1);
           this.setState({
-            selected: selected
+            active: active
           });
         }
       }else {
         this.setState({
-          selected: selected.concat(option.props.name)
+          active: active.concat(option.props.name)
         });
       }
     }else {
       this.setState({
-        selected: alreadySelected && option.props.toggle ? [] : [ option.props.name ]
+        active: alreadySelected && option.props.toggle ? [] : [ option.props.name ]
       });
     }
   },
@@ -72,7 +72,7 @@ var TabWidget = React.createClass({
     return (
       <TabContainer
         className={this.props.className}
-        selected={this.state.selected}
+        active={this.state.active}
         style={this.props.style}
       >
         { this.getContainerElements() }

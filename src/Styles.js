@@ -32,7 +32,7 @@ export default {
       margin: '0 5px',
       display: 'inline'
     },
-    selected: {
+    active: {
       borderRadius: 15,
       borderBottom: '3px solid #ff0000'
     },

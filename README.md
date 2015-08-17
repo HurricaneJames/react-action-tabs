@@ -26,7 +26,7 @@ TabOption will use name if no children
   takes a single child element (root)
   generally, I use spans in tab options
   can probably do other things, with undefined results
-  - noActivePassthrough - set when tabbar should not set an `active` prop to selected options/panels
+  - noActivePassthrough - set when tabbar should not set an `active` prop to active options/panels
 
 Can set className for each element
 can set style for each element
