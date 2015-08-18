@@ -12,7 +12,7 @@ var TabContainer = React.createClass({
     style: React.PropTypes.object,
     children: React.PropTypes.oneOfType([React.PropTypes.element, React.PropTypes.arrayOf(React.PropTypes.element)])
   },
-  isSelected: function(name) {
+  isActive: function(name) {
     return indexOf(this.props.active || [], name) > -1;
   },
   getValidChildren: function() {
@@ -31,7 +31,7 @@ var TabContainer = React.createClass({
     return children;
   },
   getVisiblePanels: function(active, panels) {
-    return filter(panels, (i) => this.isSelected(i.props.name));
+    return filter(panels, (i) => this.isActive(i.props.name));
   },
   render: function() {
     var children = this.getValidChildren();

@@ -17,11 +17,10 @@ var TabOption = React.createClass({
   getBaseStyles: function() {
     return this.props.style || Styles.merge([defaultStyle.base, this.props.active && defaultStyle.active ]);
   },
-  onClick: function() {
-    var child;
-    if(this.props.action) { this.props.action.apply(null, arguments); }
-    if((child = React.Children.only(this.props.children)) && child.props.onClick) {
-      child.props.onClick.apply(null, arguments);
+  onClick: function(e) {
+    e.preventDefault();
+    if(this.props.action) {
+      this.props.action.apply(null, arguments);
     }
   },
   renderChild: function() {
@@ -32,11 +31,13 @@ var TabOption = React.createClass({
   },
   render: function() {
     return (
-      <li className={this.props.className} style={this.getBaseStyles()} onClick={this.props.action}>
-        {
-          (React.Children.count(this.props.children) > 0 && this.renderChild()) ||
-          this.props.name
-        }
+      <li className={this.props.className} style={this.getBaseStyles()}>
+        <a href='#' style={defaultStyle.link} onClick={this.onClick}>
+          {
+            (React.Children.count(this.props.children) > 0 && this.renderChild()) ||
+            this.props.name
+          }
+        </a>
       </li>
     );
   }

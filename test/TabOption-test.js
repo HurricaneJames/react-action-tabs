@@ -133,7 +133,7 @@ describe('TabOption', () => {
     var name = 'Option 1';
     var callback = sinon.spy();
     var tabOption = TestUtils.renderIntoDocument(<TabOption name={name} action={callback} />);
-    TestUtils.Simulate.click(React.findDOMNode(tabOption));
+    TestUtils.Simulate.click(TestUtils.findRenderedDOMComponentWithTag(tabOption, 'a'));
     expect(callback.calledOnce).to.be.ok();
   });
 

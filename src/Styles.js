@@ -36,5 +36,9 @@ export default {
       borderRadius: 15,
       borderBottom: '3px solid #ff0000'
     },
+    link: {
+      textDecoration: 'inherit',
+      color: 'inherit'
+    }
   }
 };
