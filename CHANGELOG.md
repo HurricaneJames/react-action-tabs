@@ -1,3 +1,7 @@
+## 0.4
+* fixed tabs on iOS
+* added 'a' link under the TabOption 'li' element to handle clicks
+
 ## 0.3
 * changed selected to active as it more accurately represents what the tab is doing
 
